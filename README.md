@@ -1,4 +1,4 @@
 # Student-Performance-Predictor
 My first GitHub project : A simple ML-powered Flask app that predicts student performance using study data, SSI scoring, and shows recommendations with analytics.
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/383d19cd-b88e-44a7-a16e-07b267d73eb1" />
+<img width="1680" height="757" alt="Screenshot 2025-08-11 174037" src="https://github.com/user-attachments/assets/fb438728-fd57-4471-9c33-044330544fec" />
