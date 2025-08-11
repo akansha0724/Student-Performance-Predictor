@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow p-4 animate__animated animate__fadeIn">
+    <h3 class="mb-3">📈 Prediction Results</h3>
+
+    <!-- SSI Score Progress Bar -->
+    <label class="form-label fw-bold">Student Success Index (SSI): {{ ssi_score }}%</label>
+    <div class="progress mb-3" style="height: 25px;">
+        <div class="progress-bar {% if risk_tier == 'High Success' %}bg-success
+                                {% elif risk_tier == 'Medium Success' %}bg-info
+                                {% elif risk_tier == 'Standard' %}bg-warning
+                                {% else %}bg-danger{% endif %}"
+             role="progressbar"
+             style="width: {{ ssi_score }}%;">
+            {{ ssi_score }}%
+        </div>
+    </div>
+
+    <!-- Risk Tier Badge -->
+    <p>
+        <span class="fw-bold">Performance Tier:</span>
+        <span class="badge {% if risk_tier == 'High Success' %}bg-success
+                           {% elif risk_tier == 'Medium Success' %}bg-info
+                           {% elif risk_tier == 'Standard' %}bg-warning
+                           {% else %}bg-danger{% endif %}">
+            {{ risk_tier }}
+        </span>
+    </p>
+
+    <!-- Confidence Level -->
+    <p><strong>Model Confidence:</strong> {{ confidence }}%</p>
+
+    <!-- Recommendations -->
+    <h5 class="mt-4">✅ Personalized Recommendations:</h5>
+    <ul class="list-group mb-4">
+        {% for rec in recommendations %}
+            <li class="list-group-item">{{ rec }}</li>
+        {% endfor %}
+    </ul>
+
+    <div class="d-flex justify-content-between mt-3">
+        <a href="/" class="btn btn-secondary">🔄 Predict Again</a>
+        <a href="/analytics" class="btn btn-primary">📊 View Analytics</a>
+    </div>
+</div>
+{% endblock %}

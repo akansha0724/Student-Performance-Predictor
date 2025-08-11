@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow p-4">
+    <h3 class="mb-4">📊 Analytics Dashboard</h3>
+    <p class="text-muted">Overview of recent predictions and performance tiers.</p>
+
+    <!-- Risk Tier Distribution -->
+    <h5>Risk Tier Distribution</h5>
+    <canvas id="tierChart" height="120"></canvas>
+
+    <hr class="my-4">
+
+    <!-- SSI Average -->
+    <h5>Average Student Success Index (SSI)</h5>
+    <canvas id="ssiChart" height="120"></canvas>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Data passed from Flask as JSON
+    const tierData = {{ performance_data|tojson }};
+    const ssiData = {{ ssi_data|tojson }};
+
+    // Risk Tier Pie Chart
+    const ctx1 = document.getElementById('tierChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(tierData),
+            datasets: [{
+                data: Object.values(tierData),
+                backgroundColor: ['#28a745', '#0dcaf0', '#ffc107', '#dc3545']
+            }]
+        }
+    });
+
+    // SSI Average Bar Chart
+    const ctx2 = document.getElementById('ssiChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Average SSI Score'],
+            datasets: [{
+                label: 'Average SSI %',
+                data: [ssiData],
+                backgroundColor: '#764ba2'
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true, max: 100 }
+            }
+        }
+    });
+</script>
+{% endblock %}
